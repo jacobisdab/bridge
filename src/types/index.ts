@@ -38,6 +38,7 @@ export type IUser = {
   email: string;
   imageUrl: string;
   bio: string;
+  isStudent:boolean;
 };
 
 export type INewUser = {
@@ -45,4 +46,5 @@ export type INewUser = {
   email: string;
   username: string;
   password: string;
+  isStudent: boolean;
 };

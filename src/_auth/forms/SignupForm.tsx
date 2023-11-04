@@ -2,10 +2,10 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import Loader from "@/components/shared/Loader";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -25,6 +25,7 @@ const SignupForm = () => {
       username: "",
       email: "",
       password: "",
+      isStudent:true
     },
   });
 
@@ -74,8 +75,14 @@ const SignupForm = () => {
 
   return (
     <Form {...form}>
+      
+      <Link to="/intro">
+        <img className="fixed top-4 left-4 " src="/assets/images/arrow.png" alt="logo" width={25} height={25} />
+      </Link>
+      
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+
+        <img src="/assets/images/bridge_white.png" alt="logo"  />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Create a new account
@@ -143,7 +150,32 @@ const SignupForm = () => {
             )}
           />
 
-          <Button type="submit" className="shad-button_primary">
+          <FormField
+            control={form.control}
+            name="isStudent"
+            render={({ field }) => (
+              <div>
+              <p className="flex">
+                Students
+              </p>
+                <FormItem className="flex flex-center ">
+                  <FormLabel className="shad-form_label"></FormLabel>
+                  <FormControl>
+                    <Switch className=""
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              <p className="flex">
+                Businesses
+              </p>
+              </div>
+            )}
+          />
+
+          <Button type="submit" className="shad-button_primary ">
             {isCreatingAccount || isSigningInUser || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...

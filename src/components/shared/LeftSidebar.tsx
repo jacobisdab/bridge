@@ -29,12 +29,22 @@ const LeftSidebar = () => {
       <div className="flex flex-col gap-11">
         <Link to="/" className="flex gap-3 items-center">
           <img
-            src="/assets/images/untitled.svg" 
+            src="/assets/images/bridge_white.png" 
             alt="logo"
-            width={170}
+            width={190}
             height={36}
           />
         </Link>
+
+        {user.isStudent? (
+          <div >
+          Students Welcome!
+          </div>
+        ) : (
+         <div>
+          Businesses Welcome!
+         </div>
+        )}
 
         {isLoading || !user.email ? (
           <div className="h-14">

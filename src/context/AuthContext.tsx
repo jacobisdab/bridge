@@ -11,6 +11,7 @@ export const INITIAL_USER = {
   email: "",
   imageUrl: "",
   bio: "",
+  isStudent:false
 };
 
 const INITIAL_STATE = {
@@ -51,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           email: currentAccount.email,
           imageUrl: currentAccount.imageUrl,
           bio: currentAccount.bio,
+          isStudent:currentAccount.isStudent,
         });
         setIsAuthenticated(true);
 
@@ -73,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       cookieFallback === null ||
       cookieFallback === undefined
     ) {
-      navigate("/sign-in");
+      navigate("/intro");
     }
 
     checkAuthUser();

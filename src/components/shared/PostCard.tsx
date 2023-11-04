@@ -7,7 +7,7 @@ import { useUserContext } from "@/context/AuthContext";
 
 type PostCardProps = {
   post: Models.Document;
-};
+}; 
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();

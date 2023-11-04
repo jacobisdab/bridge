@@ -53,8 +53,16 @@ const SigninForm = () => {
 
   return (
     <Form {...form}>
+
+      <Link to="/intro">
+        <img className="fixed top-4 left-4 " src="/assets/images/arrow.png" alt="logo" width={25} height={25} />
+      </Link>
+       
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/untitled.svg" alt="logo" />
+        
+        
+        
+        <img src="/assets/images/bridge_white.png" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Log in to your account
