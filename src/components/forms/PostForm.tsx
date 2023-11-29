@@ -32,7 +32,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
-  const [selected, setSelected] = React.useState<Date>();
+  const [,] = React.useState<Date>();
   
 
   const form = useForm<z.infer<typeof PostValidation>>({
