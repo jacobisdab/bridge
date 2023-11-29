@@ -3,6 +3,7 @@ import { Models } from "appwrite";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from 'react'
 
 import {
   Form,
@@ -20,8 +21,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
 import { FileUploader, Loader } from "@/components/shared";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
+import { Calendar } from "@/components/ui/calendar"
 
-type PostFormProps = {
+type PostFormProps = {   
   post?: Models.Document;
   action: "Create" | "Update";
 };
@@ -30,6 +32,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
+  const [selected, setSelected] = React.useState<Date>();
+  
+
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -37,6 +42,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       file: [],
       location: post ? post.location : "",
       tags: post ? post.tags.join(",") : "",
+      expiredate:post ? post.expiredate : new Date(), 
     },
   });
 
@@ -88,8 +94,8 @@ const PostForm = ({ post, action }: PostFormProps) => {
           control={form.control}
           name="caption"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+            <FormItem> 
+              <FormLabel className="shad-form_label">Project Description</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar"
@@ -106,7 +112,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Photos</FormLabel>
+              <FormLabel className="shad-form_label">Add Reference Images</FormLabel>
               <FormControl>
                 <FileUploader
                   fieldChange={field.onChange}
@@ -138,11 +144,11 @@ const PostForm = ({ post, action }: PostFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">
-                Add Tags (separated by comma " , ")
+                Add Industries & Tags (separated by comma " , ")
               </FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Art, Expression, Learn"
+                  placeholder="Design, Web Dev, Marketing"
                   type="text"
                   className="shad-input"
                   {...field}
@@ -152,6 +158,29 @@ const PostForm = ({ post, action }: PostFormProps) => {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="expiredate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="shad-form_label">
+                Pick a Deadline
+              </FormLabel>
+              <FormControl className="bg-dark-2">
+                <Calendar
+                  mode="single"
+                  selected={field.value}
+                  onSelect={field.onChange}
+                  className="rounded-md border shadow"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="shad-form_message" />
+            </FormItem>
+          )}
+        />
+
 
         <div className="flex gap-4 items-center justify-end">
           <Button

@@ -53,6 +53,32 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
   }
 };
 
+export const formatExpiryDate = (expiryDateString: string = ""): string =>  {
+  const expiryDate = new Date(expiryDateString);
+  const currentDate = new Date();
+  const timeDifference = expiryDate.getTime() - currentDate.getTime();
+
+  // Convert milliseconds to seconds
+  const seconds = Math.floor(timeDifference / 1000);
+
+  // Calculate the remaining time in seconds, minutes, hours, and days
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 1) {
+    return `in ${days} days`;
+  } else if (hours > 1) {
+    return `in ${hours} hours`;
+  } else if (minutes > 1) {
+    return `in ${minutes} minutes`;
+  } else if (seconds > 0) {
+    return 'in less than a minute';
+  } else {
+    return 'Expired';
+  }
+}
+
 export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };

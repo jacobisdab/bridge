@@ -11,6 +11,7 @@ export type IUpdateUser = {
   imageId: string;
   imageUrl: URL | string;
   file: File[];
+
 };
 
 export type INewPost = {
@@ -19,6 +20,7 @@ export type INewPost = {
   file: File[];
   location?: string;
   tags?: string;
+  expiredate: Date;
 };
 
 export type IUpdatePost = {
@@ -29,6 +31,7 @@ export type IUpdatePost = {
   file: File[];
   location?: string;
   tags?: string;
+  expiredate: Date;
 };
 
 export type IUser = {

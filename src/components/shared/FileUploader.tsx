@@ -44,6 +44,9 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
         </>
       ) : (
         <div className="file_uploader-box ">
+          <h3 className="base-medium text-light-2 mb-2 mt-6">
+            Please Add at Least 1 Reference Image
+          </h3>
           <img
             src="/assets/icons/file-upload.svg"
             width={96}

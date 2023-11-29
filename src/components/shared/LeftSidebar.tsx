@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { INavLink } from "@/types";
-import { sidebarLinks } from "@/constants";
+import { sidebarLinks, sidebarLinksForStudents } from "@/constants";
 import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queries";
@@ -64,32 +64,67 @@ const LeftSidebar = () => {
           </Link>
         )}
 
-        <ul className="flex flex-col gap-6">
-          {sidebarLinks.map((link: INavLink) => {
-            const isActive = pathname === link.route;
+        {user.isStudent? (
+          <div >
+            <ul className="flex flex-col gap-6">
+            {sidebarLinksForStudents.map((link: INavLink) => {
+              const isActive = pathname === link.route;
 
-            return (
-              <li
-                key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
-                }`}>
-                <NavLink
-                  to={link.route}
-                  className="flex gap-4 items-center p-4">
-                  <img
-                    src={link.imgURL}
-                    alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && "invert-white"
-                    }`}
-                  />
-                  {link.label}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
+              return (
+                <li
+                  key={link.label}
+                  className={`leftsidebar-link group ${
+                    isActive && "#2dd4bf"
+                  }`}>
+                  <NavLink
+                    to={link.route}
+                    className="flex gap-4 items-center p-4">
+                    <img
+                      src={link.imgURL}
+                      alt={link.label}
+                      className={`group-hover:invert-white ${
+                        isActive && "invert-white"
+                      }`}
+                    />
+                    {link.label}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        ) : (
+         <div>
+            <ul className="flex flex-col gap-6">
+              {sidebarLinks.map((link: INavLink) => {
+                const isActive = pathname === link.route;
+
+                return (
+                  <li
+                    key={link.label}
+                    className={`leftsidebar-link group ${
+                      isActive && "bg-primary-500"
+                    }`}>
+                    <NavLink
+                      to={link.route}
+                      className="flex gap-4 items-center p-4">
+                      <img
+                        src={link.imgURL}
+                        alt={link.label}
+                        className={`group-hover:invert-white ${
+                          isActive && "invert-white"
+                        }`}
+                      />
+                      {link.label}
+                    </NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+         </div>
+        )}
+
+        
       </div>
 
       <Button

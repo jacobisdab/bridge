@@ -2,7 +2,7 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 
 import { PostStats } from "@/components/shared";
-import { multiFormatDateString } from "@/lib/utils";
+import { formatExpiryDate, multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
 
 type PostCardProps = {
@@ -43,8 +43,25 @@ const PostCard = ({ post }: PostCardProps) => {
               </p>
             </div>
           </div>
+        
         </div>
-
+    
+        {formatExpiryDate(post.expiredate) === "Expired" ? (
+          <div>
+           <p className="ml-40 subtle-semibold lg:small-regular ">
+                Project <p className="subtle-semibold lg:small-regular text-purple-500"> Expired</p>
+              </p>
+          </div>
+        ) : (
+          <div >
+            <p className="ml-40 subtle-semibold lg:small-regular ">
+                Project Expires <p className=" ml-10 subtle-semibold lg:small-regular text-sky-400	 ">{formatExpiryDate(post.expiredate)}</p>
+              </p>
+          </div>
+        )}
+        <div>
+          
+        </div>
         <Link
           to={`/update-post/${post.$id}`}
           className={`${user.id !== post.creator.$id && "hidden"}`}>
